@@ -28,8 +28,9 @@ def main() -> None:
     assert 1 <= len(entry) <= 159, f"entry is {len(entry)} characters, gate needs 1-159"
     assert entry.strip(), "entry must not be only white space"
     assert "\n" not in entry.strip(), "entry must be a single line"
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8", newline="") as f:
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    os.makedirs(out_dir, exist_ok=True)
+    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8", newline="") as f:
         f.write(entry)
     print(entry)
 
